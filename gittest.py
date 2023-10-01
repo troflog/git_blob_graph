@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 def add_tree_blobs_to_graph(repo, commit_graph, commit_hash, path=""):
     commit = repo[commit_hash]
     commit_hash_sub = commit_hash[:5]
+    #Add this three to the graph
     for entry in commit.tree:
         if entry.type == pygit2.GIT_OBJ_TREE:
             tree_hash = entry.hex
@@ -16,8 +17,8 @@ def add_tree_blobs_to_graph(repo, commit_graph, commit_hash, path=""):
             blob_hash = entry.hex
             blob_hash_sub = blob_hash[:5]
             blob_name = entry.name  # File name including the path
-            commit_graph.add_node(blob_hash_sub, label=blob_name)  # Label blob nodes with file name
-            commit_graph.add_edge(commit_hash, blob_hash)
+            commit_graph.add_node(blob_hash_sub, label='file-'+blob_name)  # Label blob nodes with file name
+            commit_graph.add_edge(commit_hash_sub, blob_hash_sub)
 
 # Open the Git repository
 repo_path = "/home/tbf/gtest"
@@ -30,14 +31,20 @@ graph = nx.DiGraph()
 for commit in repo.walk(repo.head.target, pygit2.GIT_SORT_TOPOLOGICAL):
     commit_hash = commit.hex
     commit_hash_sub = commit.hex[:5]
-    graph.add_node(commit_hash,label='commit-' + commit_hash_sub)
+    graph.add_node(commit_hash_sub,label='commit-' + commit_hash_sub)
     
     for parent_hash in commit.parent_ids:
         parent_hash_sub = str(parent_hash)[:5]
-
         graph.add_edge(parent_hash_sub, commit_hash_sub)
     
     add_tree_blobs_to_graph(repo, graph, commit_hash)
+
+print("Nodes in the commit graph:")
+print(graph.nodes(data=True))
+print("\nEdges in the commit graph:")
+print(graph.edges())
+
+
 
 # Draw and display the graph
 pos = nx.spring_layout(graph, seed=42)
