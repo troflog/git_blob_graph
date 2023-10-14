@@ -21,7 +21,7 @@ def add_tree_blobs_to_graph(repo, commit_graph, commit_hash, path=""):
             commit_graph.add_edge(commit_hash_sub, blob_hash_sub)
 
 # Open the Git repository
-repo_path = "/home/tbf/gtest"
+repo_path = "/home/tbf/Repos/gtest"
 repo = pygit2.Repository(repo_path)
 
 # Create a directed graph using NetworkX
