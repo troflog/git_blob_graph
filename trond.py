@@ -2,6 +2,34 @@ import pygit2
 import networkx as nx
 import matplotlib.pyplot as plt
 
+# def find_branch_for_commit(repo_path, commit_hash):
+#     repo = pygit2.Repository(repo_path)
+#
+#     commit = repo[commit_hash]
+#
+#     for branch in repo.branches.local:
+#         try:
+#             branch_commit = repo.revparse_single(branch.name)
+#             if branch_commit.id == commit.id:
+#                 return branch.name
+#         except KeyError:
+#             # Handle the case where a branch may point to a non-existent commit
+#             pass
+
+
+def get_all_branch_heads(repo):    
+
+    branch_heads = []
+
+    for branch in repo.branches.local:
+        try:
+            branch_commit = repo.revparse_single(branch)
+            branch_heads.append((branch, branch_commit.id))
+        except KeyError:
+            # Handle the case where a branch may point to a non-existent commit
+            pass
+
+    return branch_heads
 # def add_tree_blobs_to_graph(tree, commit_graph, blob_hash, path=""):
     
 #     tree_hash = tree.hex
@@ -28,6 +56,7 @@ import matplotlib.pyplot as plt
 repo_path = "../trond"
 repo = pygit2.Repository(repo_path)
 
+heads = get_all_branch_heads(repo)
 
 
 # Create a directed graph using NetworkX
@@ -36,7 +65,7 @@ graph = nx.DiGraph()
 # Iterate through the commit history
 for commit in repo.walk(repo.head.target, pygit2.GIT_SORT_REVERSE):
     commit_hash = commit.hex    
-    graph.add_node(commit_hash) #,label='commit-' + commit_hash[:5])
+    graph.add_node(commit_hash,label='commit:' + commit_hash[:5]+'\nmessage:'+commit.message )
     #if commit.parent_ids
     for parent in commit.parents:        
         graph.add_edge(parent.hex, commit_hash)
