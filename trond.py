@@ -2,19 +2,6 @@ import pygit2
 import networkx as nx
 import matplotlib.pyplot as plt
 
-# def find_branch_for_commit(repo_path, commit_hash):
-#     repo = pygit2.Repository(repo_path)
-#
-#     commit = repo[commit_hash]
-#
-#     for branch in repo.branches.local:
-#         try:
-#             branch_commit = repo.revparse_single(branch.name)
-#             if branch_commit.id == commit.id:
-#                 return branch.name
-#         except KeyError:
-#             # Handle the case where a branch may point to a non-existent commit
-#             pass
 
 def small_hash(hash,length=5):
     return hash[:length]
@@ -59,8 +46,8 @@ graph = nx.DiGraph()
 # # Iterate through the commit history
 for branch_name in repo.branches.local:
     # Get the commit at the tip of the branch
-    commit = repo.revparse_single(branch_name)
-    for commit in repo.walk(repo.head.target, pygit2.GIT_SORT_TOPOLOGICAL):
+    branch_tip = repo.revparse_single(branch_name)
+    for commit in repo.walk(branch_tip.oid, pygit2.GIT_SORT_TOPOLOGICAL):
         commit_hash = commit.hex    
         commit_hash_short = small_hash(commit_hash)
         graph.add_node(commit_hash_short,bname = commit_hash_short,btype='Commit',message=commit.message)
@@ -73,6 +60,10 @@ branches = get_all_branches(repo)
 for branch_name,commit_hash in branches.items():
     graph.add_node(branch_name,bname = branch_name,btype='Branch')
     graph.add_edge(branch_name,small_hash(commit_hash))
+
+#Add head
+graph.add_node('HEAD',bname='HEAD')
+graph.add_edge('HEAD',small_hash(str(repo.head.target)))
 
 #Print the graph#Print the graph
 print("Nodes in the commit graph:")
