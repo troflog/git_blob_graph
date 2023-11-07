@@ -16,6 +16,8 @@ import matplotlib.pyplot as plt
 #             # Handle the case where a branch may point to a non-existent commit
 #             pass
 
+def small_hash(hash,length=5):
+    return hash[:length]
 
 def get_all_branches(repo):    
     branch_heads = []
@@ -30,7 +32,7 @@ def get_all_branches(repo):
     return dict(branch_heads)
 
 def populate_tree(tree,parent_hash_short,graph):
-
+    
     #Add the conncect tree
     tree_hash = tree.hex
     tree_hash_short = small_hash(tree_hash)
@@ -49,40 +51,34 @@ def populate_tree(tree,parent_hash_short,graph):
             graph.add_edge(tree_hash_short,blob_hash_short)
 
 
-def small_hash(hash,length=5):
-    return hash[:length]
-
-
-
 # Open the Git repository
 repo_path = "../trond"
 repo = pygit2.Repository(repo_path)
-
-branches = get_all_branches(repo) 
-
-
-# Create a directed graph using NetworkX
+#Make a graph
 graph = nx.DiGraph()
+# # Iterate through the commit history
+for branch_name in repo.branches.local:
+    # Get the commit at the tip of the branch
+    commit = repo.revparse_single(branch_name)
+    for commit in repo.walk(repo.head.target, pygit2.GIT_SORT_TOPOLOGICAL):
+        commit_hash = commit.hex    
+        commit_hash_short = small_hash(commit_hash)
+        graph.add_node(commit_hash_short,bname = commit_hash_short,btype='Commit',message=commit.message)
+        for parent in commit.parents:        
+            graph.add_edge(commit_hash_short,small_hash(parent.hex))
+        populate_tree(commit.tree,commit_hash_short,graph)
 
-# Iterate through the commit history
-for commit in repo.walk(repo.head.target, pygit2.GIT_SORT_REVERSE):
-    commit_hash = commit.hex    
-    commit_hash_short = small_hash(commit_hash)
-    graph.add_node(commit_hash_short,bname = commit_hash_short,btype='Commit',message=commit.message)
-    #if commit.parent_ids
-    for parent in commit.parents:        
-        graph.add_edge(small_hash(parent.hex), commit_hash_short)
-    populate_tree(commit.tree,commit_hash_short,graph) 
-    
 # #Add branch pointers
-# for branch_name,c_hash in branches.items():
-#     graph.add_node(branch_name,bname = branch_name,btype='Branch')
-#     graph.add_edge(small_hash(c_hash),branch_name)
-#
-#Add head
+branches = get_all_branches(repo)
+for branch_name,commit_hash in branches.items():
+    graph.add_node(branch_name,bname = branch_name,btype='Branch')
+    graph.add_edge(branch_name,small_hash(commit_hash))
 
+#Print the graph#Print the graph
 print("Nodes in the commit graph:")
-print(graph.nodes(data=True))
+for node in graph.nodes(data=True):
+    print(node[0]+':'+node[1].get('message',''))
+# print(graph.nodes(data=True))
 print("\nEdges in the commit graph:")
 print(graph.edges())
 
@@ -92,9 +88,9 @@ plt.figure(figsize=(12, 12))
 node_labels = nx.get_node_attributes(graph, "bname")  # Get node labels (file names)
 n = {}
 for k,v in dict(list(graph.nodes(data=True))).items():
-    n[k] =v['btype']+':'+v['bname']+'\n'+v.get('message','')+v.get('name','')
+    n[k] =v.get('btype','')+':'+v['bname']+'\n'+v.get('message','')+v.get('name','')
 nx.draw(graph, pos, labels=n)
 plt.title("Git Commit Graph with File Names")
 plt.axis("off")
 plt.show()
-
+#
