@@ -1,10 +1,12 @@
 ```mermaid
-graph TD;
+graph LR;
 
   subgraph commit
     commitID1(Commit ID 1)
     commitID2(Commit ID 2)
     commitID3(Commit ID 3)
+    mainBranch(Main Branch)
+    HEAD(HEAD)
   end
 
   subgraph tree
@@ -28,5 +30,8 @@ graph TD;
 
   commitID1 --> commitID2
   commitID2 --> commitID3
+
+  mainBranch --> commitID3
+  HEAD --> mainBranch
 
 ```
