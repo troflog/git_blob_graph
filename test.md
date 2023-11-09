@@ -5,7 +5,7 @@ graph LR
 H[HEAD]
 M[Master]
 
-T1[PER 1<br>#34G42<br>Blob1 per <br>Blob2 geir]
+T1[Tree 34243<br>#34G42<br>Blob1 per <br>Blob2 geir]
 
 T2[Tree <br>I am green<br>Superman]
 
