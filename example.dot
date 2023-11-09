@@ -1,0 +1,81 @@
+digraph git {
+  rankdir=LR;
+  node [shape=box];
+  edge [arrowhead=vee];
+
+  // Subgraphs
+  subgraph cluster_commit {
+    label = "Commit";
+    fillcolor = red;
+    style = filled;
+    C1 [label="Commit 1\nmaster"];
+    C2 [label="Commit 2\nmaster"];
+    C3 [label="Commit 3\nmaster"];
+    C4 [label="Commit 4\nmaster, feature"];
+    C5 [label="Commit 5\nfeature"];
+  }
+
+  subgraph cluster_tree {
+    label = "Tree";
+    fillcolor = green;
+    style = filled;
+    T1 [label=<
+  
+    <TABLE BORDER="0" CELLSPACING="0" >
+      <TR>
+        <TD ALIGN="LEFT">Tree #234D4</TD>
+      </TR>
+
+      <TR>
+        <TD ALIGN="LEFT" BGCOLOR="Green">Blob 1</TD>
+        <TD ALIGN="RIGHT" BGCOLOR="Green">README.md</TD>
+      </TR>
+      <TR>
+        <TD ALIGN="LEFT" BGCOLOR="Green">Blob 2</TD>
+        <TD ALIGN="RIGHT" BGCOLOR="Green">foo.txt</TD>
+      </TR>
+     
+    </TABLE>
+  > ];
+    T2 [label="Tree 2"];
+    T3 [label="Tree 3"];
+    T4 [label="Tree 4"];
+    T5 [label="Tree 5"];
+  }
+
+  subgraph cluster_blob {
+    label = "Blob";
+    fillcolor = blue;
+    style = filled;
+    B1 [label="Blob 1\nREADME.md"];
+    B2 [label="Blob 2\nfoo.txt"];
+    B3 [label="Blob 3\nbar.txt"];
+    B4 [label="Blob 4\nfoo.txt"];
+    B5 [label="Blob 5\nbaz.txt"];
+  }
+
+  // Edges
+  C1 -> T1;
+  C2 -> T2;
+  C3 -> T3;
+  C4 -> T4;
+  C5 -> T5;
+
+  T1 -> B1;
+  T1 -> B2;
+  T2 -> B1;
+  T2 -> B3;
+  T3 -> B1;
+  T3 -> B4;
+  T4 -> B1;
+  T4 -> B4;
+  T4 -> B5;
+  T5 -> B1;
+  T5 -> B3;
+  T5 -> B5;
+
+  C2 -> C1;
+  C3 -> C2;
+  C4 -> C3;
+  C5 -> C2;
+}
