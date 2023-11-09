@@ -1,32 +1,43 @@
 ```mermaid
-graph TD;
 
-  subgraph commit
-    commitID1(Commit ID 1)
-    commitID2(Commit ID 2)
-    commitID3(Commit ID 3)
-  end
+graph LR
 
-  subgraph tree
-    treeID1(Tree ID 1)
-    treeID2(Tree ID 2)
-    treeID3(Tree ID 3)
-  end
+H[HEAD]
+M[Master]
 
-  subgraph blob
-    blobID1(Blob ID 1)
-    blobID2(Blob ID 2)
-    blobID3(Blob ID 3)
-  end
+T1[PER 1<br>I am blue<br>Superman]
 
-  commitID1 --> treeID1
-  treeID1 --> blobID1
-  commitID2 --> treeID2
-  treeID2 --> blobID2
-  commitID3 --> treeID3
-  treeID3 --> blobID3
+T2[Tree <br>I am green<br>Superman]
 
-  commitID1 --> commitID2
-  commitID2 --> commitID3
+subgraph Commits
+H --> A
+M --> B
+A[First commit] --> B[Second commit]
+B --> C[Third commit]
+end
+subgraph Trees
+A --> T1
+B --> T2
+C --> T3[Tree 3]
+T2 --> T4[Tree 4]
+T3 --> T5[Tree 5]
+end
+subgraph Blobs
+T1 --> B1[Blob 1]
+T1 --> B2[Blob 2]
+T2 --> B3[Blob 3]
+T4 --> B5[Blob 5]
+T4 --> B6[Blob 6]
+T3 --> B4[Blob 4]
+T5 --> B7[Blob 7]
+T1 --> B8[Blob 8]
+T5 --> B8[Blob 8]
+end
+
 
 ```
+
+
+
+
+
