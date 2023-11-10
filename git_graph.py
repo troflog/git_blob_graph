@@ -23,8 +23,11 @@ def populate_tree(tree,parent_hash_short,graph):
     #Add the conncect tree
     tree_hash = tree.hex
     tree_hash_short = small_hash(tree_hash)
+
     graph.add_node(tree_hash_short,bname = tree_hash_short,btype='Tree')  # Label tree nodes with their hash
     graph.add_edge(parent_hash_short,tree_hash_short)
+    #Make a list of all the connected tree/blob
+    tree_children =[] 
     #Add all blob to the connected tree
     #Add this three to the graph
     for entry in tree:
@@ -36,6 +39,9 @@ def populate_tree(tree,parent_hash_short,graph):
             blob_name = entry.name  # File me including the path
             graph.add_node(blob_hash_short,bname=blob_hash_short,btype='Blob',name=blob_name)
             graph.add_edge(tree_hash_short,blob_hash_short)
+            tree_children.append([blob_hash_short,blob_name])
+    #Add childern information
+    graph.nodes[tree_hash_short]['children'] = tree_children
 
 
 # Open the Git repository
