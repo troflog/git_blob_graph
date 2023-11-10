@@ -23,8 +23,8 @@ digraph git {
 
   subgraph cluster_tree {
     label = "Tree";
-    fillcolor = lightblue;
-    style = filled;
+    fillcolor = lightblue
+    style = filled
     T1 [label=<
   
     <TABLE BORDER="0" CELLSPACING="0" >
@@ -42,7 +42,7 @@ digraph git {
      
     </TABLE>
   >,color =black ];
-    T2 [label="Tree 2"];
+    T2 [label="Tree 2" color=green];
     T3 [label="Tree 3"];
     T4 [label="Tree 4"];
     T5 [label="Tree 5"];
