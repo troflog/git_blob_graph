@@ -1,0 +1,62 @@
+strict digraph "" {
+	bcf05	[bname=bcf05,
+		btype=Commit,
+		message="Geir has contetn
+"];
+	e0c04	[bname=e0c04,
+		btype=Commit,
+		message="Added geir
+"];
+	bcf05 -> e0c04;
+	"8c8c4"	[bname="8c8c4",
+		btype=Tree,
+		children="[['e69de', 'first_file.txt'], ['43e10', 'geir.py'], ['f8a6e', 'per.py']]"];
+	bcf05 -> "8c8c4";
+	"10fea"	[bname="10fea",
+		btype=Commit,
+		message="Added per.py
+"];
+	e0c04 -> "10fea";
+	fd764	[bname=fd764,
+		btype=Tree,
+		children="[['e69de', 'first_file.txt'], ['e69de', 'geir.py'], ['f8a6e', 'per.py']]"];
+	e0c04 -> fd764;
+	e69de	[bname=e69de,
+		btype=Blob,
+		name="per.py"];
+	"8c8c4" -> e69de;
+	"43e10"	[bname="43e10",
+		btype=Blob,
+		name="geir.py"];
+	"8c8c4" -> "43e10";
+	f8a6e	[bname=f8a6e,
+		btype=Blob,
+		name="per.py"];
+	"8c8c4" -> f8a6e;
+	"848b7"	[bname="848b7",
+		btype=Commit,
+		message="First commit
+"];
+	"10fea" -> "848b7";
+	"889c3"	[bname="889c3",
+		btype=Tree,
+		children="[['e7210', 'first_file.txt'], ['e69de', 'per.py']]"];
+	"10fea" -> "889c3";
+	fd764 -> e69de;
+	fd764 -> f8a6e;
+	"95e56"	[bname="95e56",
+		btype=Tree,
+		children="[['e7210', 'first_file.txt']]"];
+	"848b7" -> "95e56";
+	"889c3" -> e69de;
+	e7210	[bname=e7210,
+		btype=Blob,
+		name="first_file.txt"];
+	"889c3" -> e7210;
+	"95e56" -> e7210;
+	main	[bname=main,
+		btype=Branch];
+	main -> bcf05;
+	HEAD	[bname=HEAD];
+	HEAD -> bcf05;
+}

@@ -1,0 +1,7 @@
+// Eg er stor
+digraph trond {
+	C1 [label="Commit 1"]
+	C2 [label="Commit 2"]
+	C2 [label="Commiter 2"]
+	C1 -> C2
+}

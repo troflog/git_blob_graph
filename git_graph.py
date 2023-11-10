@@ -1,6 +1,7 @@
 import pygit2
 import networkx as nx
 import matplotlib.pyplot as plt
+from networkx.drawing.nx_agraph import to_agraph
 
 
 def small_hash(hash,length=5):
@@ -71,13 +72,21 @@ for branch_name,commit_hash in branches.items():
 graph.add_node('HEAD',bname='HEAD')
 graph.add_edge('HEAD',small_hash(str(repo.head.target)))
 
+#Convert to graphviz object
+graphviz_graph = to_agraph(graph)
+graphviz_graph.write('graph.dot')
+
 #Print the graph#Print the graph
 print("Nodes in the commit graph:")
-for node in graph.nodes(data=True):
-    print(node[0]+':'+node[1].get('message',''))
+#for node in graph.nodes(data=True):
+#    print(node[0]+':'+node[1].get('message',''))
 # print(graph.nodes(data=True))
-print("\nEdges in the commit graph:")
-print(graph.edges())
+#print("\nEdges in the commit graph:")
+#print(graph.edges())
+#Nodes
+for n,c in dict(graph.nodes,data=True).items():
+    print(n +':'+str(c))
+
 
 # Draw and display the graph
 pos = nx.spring_layout(graph, seed=42)
@@ -89,5 +98,6 @@ for k,v in dict(list(graph.nodes(data=True))).items():
 nx.draw(graph, pos, labels=n)
 plt.title("Git Commit Graph with File Names")
 plt.axis("off")
-plt.show()
+#plt.show()
+
 #
