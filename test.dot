@@ -7,8 +7,7 @@ digraph git {
   subgraph cluster_commit {
     label = "Commit";
     fillcolor = grey;
-    style = filled;
-    rankdir=TB;
+    style = filled;    
     C1 [label="Commit 1\nmaster"]
     C2 [label="Commit 2\nmaster"]
     C3 [label="Commit 3\nmaster"]
@@ -16,9 +15,7 @@ digraph git {
     C5 [label="Commit 5\nfeature"]
     C6 [label="Commit 6\nfeature"]
     H[label="HEAD"];
-    M[label="Master"];
-    {rank=max C1}
-    {rank=min C4}
+    M[label="Master"];   
   }
 
   subgraph cluster_tree {
