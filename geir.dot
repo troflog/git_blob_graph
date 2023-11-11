@@ -1,47 +1,95 @@
-digraph trond {
-    rankdir=LR;
-    edge [arrowhead=vee];
+digraph git {
+  rankdir=LR;
+  node [shape=box];
+  edge [arrowhead=vee];
 
-	subgraph cluster_commit {
-        label = "commit"
-		fillcolor=grey 
-        style=filled
-        node [color=green]
-		C1 [label="Commit 1"]
-		C2 [label="Commit 2"]
-        C3 [label="Commit 3"]
-	}
+  // Subgraphs
+  subgraph cluster_commit {
+    label = "Commit";
+    fillcolor = grey;
+    style = filled;    
+    C1 [label="Commit 1\nmaster"]
+    C2 [label="Commit 2\nmaster"]
+    C3 [label="Commit 3\nmaster"]
+    C4 [label="Commit 4\nmaster"]
+    C5 [label="Commit 5\nfeature"]
+    C6 [label="Commit 6\nfeature"]
+    H[label="HEAD"];
+    M[label="Master"];   
+  }
 
-	subgraph cluster_tree {
-        label="tree"
-        color=lightgrey ;
-        style=filled;
-		node [color=blue shape=box style=filled];
-		
-		T1 [label=Tree1]
-		T2 [label=Tree2]
-        T3 [label=Tree3]
-	}
+  subgraph cluster_tree {
+    label = "Tree";
+    fillcolor = lightblue
+    style = filled
+    T1 [label="
+    <TABLE BORDER="0" CELLSPACING="0" >
+      <TR>
+        <TD ALIGN="LEFT">Tree #234D4</TD>
+      </TR>
+      <TR>
+        <TD ALIGN="LEFT" >Blob 1</TD>
+        <TD ALIGN="RIGHT" >README.md</TD>
+      </TR>
+      <TR>
+        <TD ALIGN="LEFT" BGCOLOR="lightblue">Blob 2</TD>
+        <TD ALIGN="RIGHT" >foo.txt</TD>
+      </TR>
+     
+    </TABLE>"
+  ,color =black ];
 
-	subgraph cluster_blob {
-        label="Blob"
-        color=grey 
-        style=filled
-		B1 [label=Blob1]
-		B2 [label=Blob2]
-        B3 [label=Blob3]
-	}
+    T2 [label="Tree 2" color=green];
+    T3 [label="Tree 3"];
+    T4 [label="Tree 4"];
+    T5 [label="Tree 5"];
+    T5 [label="Tree 6"];
 
+  
+  }
 
-	C1 -> C2 [color=green]
-    C2 -> C3
-	C1 -> T1 [color=green]
-	C2 -> T2 [color=green]
-    C3 -> T3
-	T1 -> B1 [color=green]
-	T2 -> B1 [color=green]
-	T2 -> B2 [color=green]
-    T3 -> B2
-    T3 -> B3
+  subgraph cluster_blob {
+    label = "Blob";
+    fillcolor = beige;
+    style = filled;
+    B1 [label="Blob 1\nREADME.md"];
+    B2 [label="Blob 2\nfoo.txt"];
+    B3 [label="Blob 3\nbar.txt"];
+    B4 [label="Blob 4\nfoo.txt"];
+    B5 [label="Blob 5\nbaz.txt"];
+    B6 [label="Blob 6\nbaz.txt"];
+    B7 [label="Blob 7\nbaz.txt"];
+  }
 
+  // Edges
+  C1 -> T1 [color = "blue"];
+  C2 -> T2;
+  C3 -> T3;
+  C4 -> T4;
+  C5 -> T5;
+
+  T1 -> B1;
+  T1 -> B2;
+  T2 -> B1;
+  T2 -> B3;
+  T3 -> B1;
+  T3 -> B4;
+  T4 -> B1;
+  T4 -> B4;
+  T4 -> B5;
+  T5 -> B1;
+  T5 -> B3;
+  T5 -> B5;
+  T4 -> B6;
+  T4 -> B7;
+  T5 -> B7;
+
+  H -> C1
+
+  M -> C4
+  C2 -> C1;
+  C3 -> C2;
+  C4 -> C3;
+  C5 -> C4;
+  C6 -> C5;
 }

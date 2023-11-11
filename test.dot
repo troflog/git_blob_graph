@@ -22,8 +22,7 @@ digraph git {
     label = "Tree";
     fillcolor = lightblue
     style = filled
-    T1 [label=<
-  
+    T1 [label=<  
     <TABLE BORDER="0" CELLSPACING="0" >
       <TR>
         <TD ALIGN="LEFT">Tree #234D4</TD>

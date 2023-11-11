@@ -1,0 +1,14 @@
+digraph MyGraph {
+	A [label="
+<<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\">
+  <TR>
+    <TD>Node</TD>
+  </TR>
+  <TR>
+    <TD PORT=\"port1\">HTML</TD>
+  </TR>
+</TABLE>>
+"]
+	B [label="Regular Node"]
+	A:port1 -> B [label="Edge from HTML-labeled node to Regular Node"]
+}
