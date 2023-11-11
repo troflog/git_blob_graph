@@ -1,0 +1,28 @@
+// Eg er stor
+digraph trond {
+	rankdir=LR
+
+	subgraph cluster_commit {
+		fillcolor=lightgrey label=commits style=filled
+		C1 [label="Commit 1"]
+		C2 [label="Commit 2"]
+	}
+	subgraph cluster_tree {		
+		fillcolor=lightblue label=trees style=filled
+        node [shape=box]
+		T1 [label=Tree1]
+		T2 [label=Tree2]
+	}
+	subgraph cluster_blob {		
+		color=beige label=blobs style=filled
+        node [shape=box]
+		B1 [label=Blob1]
+		B2 [label=Blob2]
+	}
+	C1 -> C2 [color=green]
+	C1 -> T1 [color=green]
+	C2 -> T2 [color=green]
+	T1 -> B1 [color=green]
+	T2 -> B1 [color=green]
+	T2 -> B2 [color=green]
+}
