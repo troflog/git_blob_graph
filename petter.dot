@@ -10,20 +10,12 @@ digraph trond {
 		node [shape=box]
 		fillcolor="#adada1" label=trees style=filled
 		T1 [label=Tree1]
-		T2 [label=<<TABLE
-       BORDER="0" CELLSPACING="0" >
-      <TR>
-        <TD ALIGN="LEFT">Tree #234D4</TD>
-      </TR>
-      <TR>
-        <TD ALIGN="LEFT" >Blob 1</TD>
-        <TD ALIGN="RIGHT" >README.md</TD>
-      </TR>
-      <TR>
-        <TD ALIGN="LEFT" BGCOLOR="lightblue">Blob 2</TD>
-        <TD ALIGN="RIGHT" >foo.txt</TD>
-      </TR>     
-    </TABLE>>]
+		T2 [label=<<TABLE>
+ <TR>
+   <TD>left</TD>
+   <TD>right</TD>
+ </TR>
+</TABLE>>]
 	}
 	subgraph cluster_blob {
 		node [shape=box]
