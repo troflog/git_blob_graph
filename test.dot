@@ -1,11 +1,11 @@
 digraph git {
-  rankdir=LR;
+  #rankdir=LR;
   node [shape=box];
   edge [arrowhead=vee];
 
   // Subgraphs
   subgraph cluster_commit {
-    label = "Commit";
+    label = "Commit";   
     fillcolor = grey;
     style = filled;    
     C1 [label="Commit 1\nmaster"]
@@ -19,31 +19,51 @@ digraph git {
   }
 
   subgraph cluster_tree {
-    label = "Tree";
+    label = "Trees";
     fillcolor = lightblue
     style = filled
-    T1 [label=<  
-    <TABLE BORDER="0" CELLSPACING="0" >
-      <TR>
-        <TD ALIGN="LEFT">Tree #234D4</TD>
-      </TR>
-      <TR>
-        <TD ALIGN="LEFT" >Blob 1</TD>
-        <TD ALIGN="RIGHT" >README.md</TD>
-      </TR>
-      <TR>
-        <TD ALIGN="LEFT" BGCOLOR="lightblue">Blob 2</TD>
-        <TD ALIGN="RIGHT" >foo.txt</TD>
-      </TR>
-     
-    </TABLE>
-  >,color =black ];
+  
     T2 [label="Tree 2" color=green];
     T3 [label="Tree 3"];
     T4 [label="Tree 4"];
     T5 [label="Tree 5"];
     T5 [label="Tree 6"];
+    subgraph tree6 {
+        T1 [label=<  
+    <TABLE BORDER="0" CELLSPACING="0" >
+      <TR>
+        <TD ALIGN="LEFT">Tree </TD>
+      </TR>
+      <TR>
+        <TD ALIGN="LEFT" >#234D4</TD>
+        <TD ALIGN="left" >README.md</TD>
+      </TR>
+      <TR>
+        <TD ALIGN="LEFT"> 324#23</TD>
+        <TD ALIGN="left" >foo.txt</TD>
+      </TR>
+     
+    </TABLE>
 
+   
+  >,color =black ];
+      T6 [label=<  
+      <TABLE BORDER="0" CELLSPACING="0" >
+        <TR>
+          <TD ALIGN="LEFT">Tree </TD>
+        </TR>
+        <TR>
+          <TD ALIGN="LEFT" >#23d4D4</TD>
+          <TD ALIGN="left" >README.md</TD>
+        </TR>
+        <TR>
+          <TD ALIGN="LEFT"> 324#23</TD>
+          <TD ALIGN="left" >foo.txt</TD>
+        </TR>
+      
+      </TABLE>
+    >,color =black ];
+    }
   
   }
 
@@ -68,6 +88,7 @@ digraph git {
   C5 -> T5;
 
   T1 -> B1;
+  T1 -> T6;
   T1 -> B2;
   T2 -> B1;
   T2 -> B3;
@@ -80,8 +101,8 @@ digraph git {
   T5 -> B3;
   T5 -> B5;
   T4 -> B6;
-  T4 -> B7;
-  T5 -> B7;
+  T6 -> B7;
+  
 
   H -> C1
 

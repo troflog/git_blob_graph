@@ -9,13 +9,51 @@ digraph trond {
 	subgraph cluster_tree {
 		node [shape=box]
 		fillcolor="#adada1" label=trees style=filled
-		T1 [label=Tree1]
-		T2 [label=<<TABLE>
- <TR>
-   <TD>left</TD>
-   <TD>right</TD>
- </TR>
-</TABLE>>]
+		T1 [label=<<table border="0" cellspacing="0" cellpadding="0" align="left">
+
+<tr>
+    <td align="left" colspan="2" >Tree 54312</td>
+     
+  </tr>
+  <tr >
+    <td align="left" >2343#3</td>
+     <td align="left"  >trond.txt</td>
+  </tr>
+  <tr>
+    <td align="left" >343sd#3</td>
+     <td align="left"  >second row</td>
+  </tr>
+</table>>]
+		T2 [label=<<table border="0" cellspacing="0" cellpadding="0" align="left">
+
+<tr>
+    <td align="left" colspan="2" >Tree 54312</td>
+     
+  </tr>
+  <tr >
+    <td align="left" >2343#3</td>
+     <td align="left"  >trond.txt</td>
+  </tr>
+  <tr>
+    <td align="left" >343sd#3</td>
+     <td align="left"  >second row</td>
+  </tr>
+</table>> color=blue]
+		T3 [label=<<table border="0" cellspacing="0" cellpadding="0" align="left">
+
+<tr>
+    <td align="left" colspan="2" >Tree 54312</td>
+     
+  </tr>
+  <tr >
+    <td align="left" >2343#3</td>
+     <td align="left"  >trond.txt</td>
+  </tr>
+  <tr>
+    <td align="left" >343sd#3</td>
+     <td align="left"  >second row</td>
+  </tr>
+</table>>]
 	}
 	subgraph cluster_blob {
 		node [shape=box]
@@ -29,4 +67,6 @@ digraph trond {
 	T1 -> B1 [color=green]
 	T2 -> B1 [color=blue]
 	T2 -> B2 [color=blue]
+	T2 -> T3
+	T3 -> B1
 }
